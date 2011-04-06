@@ -1,0 +1,24 @@
+===============================================================================
+Python Client Library for Context.IO API
+===============================================================================
+
+This repository contains the Python Client Library for Context.IO. Please consult
+http://context.io for more information regarding Context.IO. Complete API
+documentation is available at http://developer.context.io
+
+
+REQUIREMENTS
+
+Python oauth2 (https://github.com/simplegeo/python-oauth2)
+
+
+INSTALLATION
+
+
+Latest version
+ 1 - Clone repository : https://github.com/contextio/Python-ContextIO.git
+ 2 - Run python setup.py install
+
+
+EXAMPLES
+ 1 - For examples, see example/examples.py
