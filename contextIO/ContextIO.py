@@ -144,6 +144,9 @@ class ContextIO(object):
                                   account)
 
     def contactfiles(self, email, limit=None, account=None):
+        """
+        see http://developer.context.io/page/contactfiles
+        """
         context={'email': email}
         return self._get_response('contactfiles',
                                    context,
@@ -152,6 +155,9 @@ class ContextIO(object):
 
     def contactmessages(self, email='', to_address='', from_address='',
                         cc_address='', limit=None, account=None):
+        """
+        see http://developer.context.io/page/contactmessages
+        """
         context = {}
         if email:
             context['email'] = email
@@ -167,6 +173,9 @@ class ContextIO(object):
                                   account)
 
     def diffsummary(self, file_id1, file_id2, account):
+        """
+        see http://developer.context.io/page/diffsummmary
+        """
 
         context = {
             'fileid1': file_id1,
@@ -176,10 +185,7 @@ class ContextIO(object):
                                   context,
                                   account)
 
-    def diffsummary_with_comparaison(self,
-                                     file_id1,
-                                     file_id2,
-                                     account):
+    def diffsummary_with_comparaison(self, file_id1, file_id2, account):
         context = {
             'fileid1': file_id1,
             'fileid2': file_id2,
