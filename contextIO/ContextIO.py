@@ -36,9 +36,6 @@ class ContextIORequester(httplib2.Http):
         self.api_format = api_format
         self.params = {
             'oauth_version': "1.0",
-            'oauth_nonce': oauth.generate_nonce(),
-            'oauth_timestamp': '%s' % int(time.time())
-
         }
 
         self.consumer = oauth.Consumer(key=api_key, secret=api_secret)
@@ -78,11 +75,11 @@ class ContextIORequester(httplib2.Http):
         return self.get_response_for_url(url)
 
     def get_response_for_url(self, url):
+        parameters = self.params
+        parameters['oauth_nonce'] = oauth.generate_nonce()
+        parameters['oauth_timestamp'] = '%s' % int(time.time())
 
-        self.params['oauth_nonce'] = oauth.generate_nonce()
-        self.params['oauth_timestamp'] = '%s' % int(time.time())
-
-        req = oauth.Request(method="GET", url=url, parameters=self.params)
+        req = oauth.Request(method="GET", url=url, parameters=parameters)
         # Sign the request.
         signature_method = oauth.SignatureMethod_HMAC_SHA1()
         req.sign_request(signature_method, self.consumer, None)
