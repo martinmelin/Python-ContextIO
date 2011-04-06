@@ -8,8 +8,8 @@ setup(
     author='Julien Grenier',
     author_email='julien.grenier42@gmail.com',
     description='Library for accessing the ContextIO API in Python',
-    url='https//github.com/contextio/python-ContextIO',
-    packages=['contextIO','examples'],
+    url='https//github.com/contextio/Python-ContextIO',
+    packages=['contextIO','example'],
     license='MIT Licence',
     install_requires = ['oauth2', 'httplib2'],
     keywords=['contextIO', 'dokdok', 'imap', 'oauth']
