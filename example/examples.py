@@ -6,8 +6,8 @@ api_key = 'YOUR_KEY'
 api_secret = 'YOUR_SECRET'
 
 
-api_client = ContextIO(key=api_key,
-                       secret=api_secret)
+api_client = ContextIO(api_key=api_key,
+                       api_secret=api_secret)
 
 # EXAMPLE 1
 # Print the subject line of the last 20 emails sent to with bill@example.com
@@ -34,8 +34,7 @@ for document in response.get_data():
 # EXAMPLE 3
 # Download all attachments with a file name that contains the word 'proposal'
 
-
-print "Downloading all attachments matching 'proposal'\n";
+print "Downloading all attachments matching 'proposal'\n"
 response = api_client.filesearch(filename='proposal')
 for attachment in response.get_data():
     print "Downloading attachment %s" % attachment['fileName']
@@ -44,4 +43,3 @@ for attachment in response.get_data():
     fileobj = open(attachment['fileName'], mode="wb")
     fileobj.write(file_response.get_content())
     fileobj.close()
-

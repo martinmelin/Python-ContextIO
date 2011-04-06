@@ -24,9 +24,12 @@ THE SOFTWARE.
 import time
 import oauth2 as oauth
 import httplib2
+
 from contextIO.ContextIOResponse import ContextIOResponse
 
+
 class ContextIORequester(httplib2.Http):
+
     def __init__(self, api_key, api_secret, api_url='http://api.context.io',
                  api_version=1.1, api_format='json', account=None,
                  cache=None, timeout=None, proxy_info=None):
@@ -93,35 +96,34 @@ class ContextIORequester(httplib2.Http):
             raise Exception("Invalid response %s" % response['status'])
         return ContextIOResponse(response, content)
 
+
 class ContextIO(object):
     """
        ContextIO's client implementation using oauth.
 
     """
     def __init__(self,
-                 key,
-                 secret,
+                 api_key,
+                 api_secret,
+                 api_format='json',
+                 api_url='http://api.context.io',
+                 api_version=1.1,
                  account=None,
-                 version=1.1,
-                 format='json',
                  cache=None,
                  timeout=None,
                  proxy_info=None):
 
-
-        self.requester = ContextIORequester(api_key=key,
-                                            api_secret=secret,
-                                            api_version=version,
-                                            api_format=format,
+        self.requester = ContextIORequester(api_key=api_key,
+                                            api_secret=api_secret,
+                                            api_version=api_version,
+                                            api_format=api_format,
+                                            api_url=api_url,
                                             account=account,
                                             cache=cache,
                                             timeout=timeout,
                                             proxy_info=proxy_info)
 
-    def allfiles(self,
-                 since,
-                 limit=None,
-                 account=None):
+    def allfiles(self, since, limit=None, account=None):
         """
          see http://developer.context.io/page/allfiles
         """
@@ -131,10 +133,7 @@ class ContextIO(object):
                                   limit,
                                   account)
 
-    def allmessages(self,
-                    since,
-                    limit=None,
-                    account=None):
+    def allmessages(self, since, limit=None, account=None):
         """
         see http://developer.context.io/page/allmessages
         """
@@ -144,23 +143,15 @@ class ContextIO(object):
                                   limit,
                                   account)
 
-    def contactfiles(self,
-                     email,
-                     limit=None,
-                     account=None):
+    def contactfiles(self, email, limit=None, account=None):
         context={'email': email}
         return self._get_response('contactfiles',
                                    context,
                                    limit,
                                    account)
 
-    def contactmessages(self,
-                        email='',
-                        to_address='',
-                        from_address='',
-                        cc_address='',
-                        limit=None,
-                        account=None):
+    def contactmessages(self, email='', to_address='', from_address='',
+                        cc_address='', limit=None, account=None):
         context = {}
         if email:
             context['email'] = email
@@ -175,10 +166,7 @@ class ContextIO(object):
                                   limit,
                                   account)
 
-    def diffsummary(self,
-                    file_id1,
-                    file_id2,
-                    account):
+    def diffsummary(self, file_id1, file_id2, account):
 
         context = {
             'fileid1': file_id1,
@@ -201,9 +189,7 @@ class ContextIO(object):
                                   context,
                                   account)
 
-    def downloadfile(self,
-                     file_id,
-                     account=None):
+    def downloadfile(self, file_id, account=None):
         context = {
             'fileid': file_id
         }
@@ -212,10 +198,7 @@ class ContextIO(object):
                               account)
         return self._get_response_for_url(url)
 
-    def filerevisions(self,
-                      file_ids,
-                      limit=None,
-                      account=None):
+    def filerevisions(self, file_ids, limit=None, account=None):
         context = {
             'fileid': ','.join(file_ids)
             }
@@ -225,10 +208,7 @@ class ContextIO(object):
                                   limit,
                                   account)
 
-    def filerevisions_by_filename(self,
-                                  filename,
-                                  limit=None,
-                                  account=None):
+    def filerevisions_by_filename(self, filename, limit=None, account=None):
         context = {
             'filename': filename
         }
@@ -238,10 +218,7 @@ class ContextIO(object):
                                   limit,
                                   account)
 
-    def filesearch(self,
-                   filename,
-                   limit=None,
-                   account=None):
+    def filesearch(self, filename, limit=None, account=None):
         context = {
             'filename': filename
         }
@@ -250,9 +227,7 @@ class ContextIO(object):
                                    limit,
                                    account)
 
-    def messageinfo(self,
-                    message_id,
-                    account=None):
+    def messageinfo(self, message_id, account=None):
         context = {
             'emailmessageid': message_id
         }
@@ -260,10 +235,7 @@ class ContextIO(object):
                                   context,
                                   account)
 
-    def messageinfo_from_address(self,
-                                 date_sent,
-                                 from_address,
-                                 account=None):
+    def messageinfo_from_address(self, date_sent, from_address, account=None):
         context = {
             'datesent': date_sent,
             'from': from_address
@@ -272,10 +244,7 @@ class ContextIO(object):
                                   context,
                                   account)
 
-    def messagetext(self,
-                    message_id,
-                    type='all',
-                    account=None):
+    def messagetext(self, message_id, type='all', account=None):
         context = {
             'emailmessageid': message_id
         }
@@ -286,10 +255,7 @@ class ContextIO(object):
                                   context,
                                   account)
 
-    def messagetext_from_address(self,
-                                 date_sent,
-                                 from_address,
-                                 type='all',
+    def messagetext_from_address(self, date_sent, from_address, type='all',
                                  account=None):
         context = {
             'datesent': date_sent,
@@ -301,10 +267,7 @@ class ContextIO(object):
                                   context,
                                   account)
 
-    def relatedfiles(self,
-                     file_id,
-                     limit=None,
-                     account=None):
+    def relatedfiles(self, file_id, limit=None, account=None):
         context = {
             'fileid': file_id,
         }
@@ -314,10 +277,7 @@ class ContextIO(object):
                                   limit,
                                   account)
 
-    def search(self,
-               subject,
-               limit=None,
-               account=None):
+    def search(self, subject, limit=None, account=None):
         context = {
             'subject': subject
         }
@@ -327,9 +287,7 @@ class ContextIO(object):
                                   limit,
                                   account)
 
-    def threadinfo(self,
-                   thread_id,
-                   account=None):
+    def threadinfo(self, thread_id, account=None):
         context = {
             'gmailthreadid': thread_id
         }
@@ -337,11 +295,7 @@ class ContextIO(object):
                                   context,
                                   account)
 
-    def _get_response(self,
-                      action,
-                      context,
-                      limit=None,
-                      account=None):
+    def _get_response(self, action, context, limit=None, account=None):
         if limit:
             context['limit']= limit
         url = self.requester.build_url_with_format(action, context, account)
@@ -357,27 +311,25 @@ class IMAPAdmin(object):
        Administrative IMAP functions
     """
     def __init__(self,
-                 key,
-                 secret,
-                 version=1.1,
-                 format='json',
+                 api_key,
+                 api_secret,
+                 api_version=1.1,
+                 api_format='json',
+                 api_url='http://api.context.io',
                  cache=None, timeout=None, proxy_info=None):
-        self.requester = ContextIORequester (api_key=key,
-                                        api_secret=secret,
-                                        api_version=version,
-                                        api_format=format,
+        self.requester = ContextIORequester (api_key=api_key,
+                                        api_secret=api_secret,
+                                        api_version=api_version,
+                                        api_format=api_format,
+                                        api_url=api_url,
                                         account=None,
                                         cache=cache, timeout=timeout, proxy_info=proxy_info)
 
-
-    def _get_response(self,action,context):
+    def _get_response(self, action, context):
         url = self.requester.build_url(action, context)
         return self.requester.get_response_for_url(url)
 
-    def add_account(self,
-                    email,
-                    username,
-                    password,
+    def add_account(self, email, username, password,
                     server='imap.gmail.com', usessl=True, port=993):
         context = {
             'email': email,
@@ -395,9 +347,7 @@ class IMAPAdmin(object):
         }
         return self._get_response('imap/discover.json', context)
 
-    def modify_account(self,
-                       credentials='',
-                       mailboxes=None):
+    def modify_account(self, credentials='', mailboxes=None):
         context = {}
         if credentials:
             context['credentials'] = credentials
