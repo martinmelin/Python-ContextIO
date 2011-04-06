@@ -317,7 +317,7 @@ class IMAPAdmin(object):
                  api_format='json',
                  api_url='http://api.context.io',
                  cache=None, timeout=None, proxy_info=None):
-        self.requester = ContextIORequester (api_key=api_key,
+        self.requester = ContextIORequester(api_key=api_key,
                                         api_secret=api_secret,
                                         api_version=api_version,
                                         api_format=api_format,
