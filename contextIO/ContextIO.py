@@ -30,7 +30,7 @@ from contextIO.ContextIOResponse import ContextIOResponse
 
 class ContextIORequester(httplib2.Http):
 
-    def __init__(self, api_key, api_secret, api_url='http://api.context.io',
+    def __init__(self, api_key, api_secret, api_url='https://api.context.io',
                  api_version=1.1, api_format='json', account=None,
                  cache=None, timeout=None, proxy_info=None):
 
@@ -106,7 +106,7 @@ class ContextIO(object):
                  api_key,
                  api_secret,
                  api_format='json',
-                 api_url='http://api.context.io',
+                 api_url='https://api.context.io',
                  api_version=1.1,
                  account=None,
                  cache=None,
@@ -321,7 +321,7 @@ class IMAPAdmin(object):
                  api_secret,
                  api_version=1.1,
                  api_format='json',
-                 api_url='http://api.context.io',
+                 api_url='https://api.context.io',
                  cache=None, timeout=None, proxy_info=None):
         self.requester = ContextIORequester(api_key=api_key,
                                         api_secret=api_secret,
