@@ -101,6 +101,9 @@ class ContextIO(object):
     """
        ContextIO's client implementation using oauth.
 
+       Note: If you have only one account you can instantiate ContextIO with the account parameter.
+             If you have more than one account, you need to specify it for each method call
+
     """
     def __init__(self,
                  api_key,
@@ -122,6 +125,10 @@ class ContextIO(object):
                                             cache=cache,
                                             timeout=timeout,
                                             proxy_info=proxy_info)
+
+    def addresses(self,account=None):
+        return self._get_response(action='addresses',context={},account=account)
+
 
     def allfiles(self, since, limit=None, account=None):
         """
@@ -293,10 +300,21 @@ class ContextIO(object):
                                   limit,
                                   account)
 
-    def threadinfo(self, thread_id, account=None):
-        context = {
-            'gmailthreadid': thread_id
-        }
+    def threadinfo(self, gmail_thread_id='',email_id='', account=None):
+        context = {}
+
+        if gmail_thread_id and email_id:
+            raise Exception("You can't specify both parameter at the same time")
+
+        if not (gmail_thread_id or email_id):
+            raise Exception("You need to specify at least one parameter")
+
+        if gmail_thread_id:
+            context['gmailthreadid'] = gmail_thread_id
+
+        if email_id:
+            context['emailmessageid'] = email_id
+
         return self._get_response('threadinfo',
                                   context,
                                   account)
