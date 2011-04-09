@@ -354,8 +354,8 @@ class IMAPAdmin(object):
                                         account=None,
                                         cache=cache, timeout=timeout, proxy_info=proxy_info)
 
-    def _get_response(self, action, context):
-        url = self.requester.build_url(action, context)
+    def _get_response(self, action, context,account=None):
+        url = self.requester.build_url(action, context,account=account)
         return self.requester.get_response_for_url(url)
 
     def add_account(self, email, username, password,
@@ -376,19 +376,19 @@ class IMAPAdmin(object):
         }
         return self._get_response('imap/discover.json', context)
 
-    def modify_account(self, credentials='', mailboxes=None):
+    def modify_account(self, credentials='', mailboxes=None, account=None):
         context = {}
         if credentials:
             context['credentials'] = credentials
         if mailboxes:
             context['mailboxes'] = ','.join(mailboxes)
 
-        return self._get_response('imap/mofifyaccount.json',context)
+        return self._get_response('imap/modifyaccount.json',context=context,account=account)
 
     def remove_account(self, account):
         context = {'account':account}
         return self._get_response('imap/removeaccount.json', context)
 
-    def reset_account(self, account):
+    def reset_status(self, account):
         context = {'account':account}
-        return self._get_response('imap/resetaccount.json', context)
+        return self._get_response('imap/resetstatus.json', context)
