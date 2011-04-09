@@ -44,7 +44,10 @@ class ContextIORequester(httplib2.Http):
         self.consumer = oauth.Consumer(key=api_key, secret=api_secret)
         self.params['oauth_consumer_key'] = self.consumer.key
         if account:
-            self.params['account'] = account
+            self.account = account
+        else:
+            self.account = None
+            
         super(ContextIORequester,self).__init__(cache,timeout,proxy_info)
 
     def build_url_with_format(self,
@@ -64,6 +67,8 @@ class ContextIORequester(httplib2.Http):
 
         if account:
             context['account'] = account
+        elif self.account:
+            context['account'] = self.account
 
         for key in context:
             url += '%s=%s&' % (key, context[key])
@@ -246,7 +251,7 @@ class ContextIO(object):
         }
         return self._get_response('messageinfo',
                                   context,
-                                  account)
+                                  account=account)
 
     def messageinfo_from_address(self, date_sent, from_address, account=None):
         context = {
@@ -255,7 +260,7 @@ class ContextIO(object):
         }
         return self._get_response('messageinfo',
                                   context,
-                                  account)
+                                  account=account)
 
     def messagetext(self, message_id, type='all', account=None):
         context = {
@@ -266,7 +271,7 @@ class ContextIO(object):
 
         return self._get_response('messagetext',
                                   context,
-                                  account)
+                                  account=account)
 
     def messagetext_from_address(self, date_sent, from_address, type='all',
                                  account=None):
@@ -278,7 +283,7 @@ class ContextIO(object):
             context['type'] = type
         return self._get_response('messagetext',
                                   context,
-                                  account)
+                                  account=account)
 
     def relatedfiles(self, file_id, limit=None, account=None):
         context = {
@@ -317,7 +322,7 @@ class ContextIO(object):
 
         return self._get_response('threadinfo',
                                   context,
-                                  account)
+                                  account=account)
 
     def _get_response(self, action, context, limit=None, account=None):
         if limit:
