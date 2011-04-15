@@ -309,7 +309,7 @@ class ContextIO(object):
                                   context,
                                   account=account)
 
-    def relatedfiles(self, file_id, limit=None, account=None):
+    def relatedfiles(self, file_id, account=None):
         """
         see http://context.io/docs/1.1/relatedfiles
         """
@@ -319,8 +319,7 @@ class ContextIO(object):
 
         return self._get_response('relatedfiles',
                                   context,
-                                  limit,
-                                  account)
+                                  account=account)
 
     def search(self, subject, limit=None, account=None):
         """
