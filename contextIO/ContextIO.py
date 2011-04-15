@@ -137,7 +137,7 @@ class ContextIO(object):
 
     def allfiles(self, since, limit=None, account=None):
         """
-         see http://developer.context.io/page/allfiles
+         see http://context.io/docs/1.1/allfiles
         """
         context = {'since': since}
         return self._get_response('allfiles',
@@ -147,7 +147,7 @@ class ContextIO(object):
 
     def allmessages(self, since, limit=None, account=None):
         """
-        see http://developer.context.io/page/allmessages
+        see http://context.io/docs/1.1/allmessages
         """
         context= {'since': since}
         return self._get_response('allmessages',
@@ -157,7 +157,7 @@ class ContextIO(object):
 
     def contactfiles(self, email, limit=None, account=None):
         """
-        see http://developer.context.io/page/contactfiles
+        see http://context.io/docs/1.1/contactfiles
         """
         context={'email': email}
         return self._get_response('contactfiles',
@@ -168,7 +168,7 @@ class ContextIO(object):
     def contactmessages(self, email='', to_address='', from_address='',
                         cc_address='', limit=None, account=None):
         """
-        see http://developer.context.io/page/contactmessages
+        see http://context.io/docs/1.1/contactmessages
         """
         context = {}
         if email:
@@ -186,7 +186,7 @@ class ContextIO(object):
 
     def diffsummary(self, file_id1, file_id2, account):
         """
-        see http://developer.context.io/page/diffsummmary
+        see http://context.io/docs/1.1/diffsummmary
         """
 
         context = {
@@ -208,6 +208,9 @@ class ContextIO(object):
                                   account)
 
     def downloadfile(self, file_id, account=None):
+        """
+        see http://context.io/docs/1.1/downloadfile
+        """
         context = {
             'fileid': file_id
         }
@@ -217,6 +220,9 @@ class ContextIO(object):
         return self._get_response_for_url(url)
 
     def filerevisions(self, file_ids, limit=None, account=None):
+        """
+        see http://context.io/docs/1.1/filerevisions
+        """
         context = {
             'fileid': ','.join(file_ids)
             }
@@ -227,6 +233,9 @@ class ContextIO(object):
                                   account)
 
     def filerevisions_by_filename(self, filename, limit=None, account=None):
+        """
+        see http://context.io/docs/1.1/filerevisions
+        """
         context = {
             'filename': filename
         }
@@ -237,6 +246,9 @@ class ContextIO(object):
                                   account)
 
     def filesearch(self, filename, limit=None, account=None):
+        """
+        see http://context.io/docs/1.1/filesearch
+        """
         context = {
             'filename': filename
         }
@@ -246,6 +258,9 @@ class ContextIO(object):
                                    account)
 
     def messageinfo(self, message_id, account=None):
+        """
+        see http://context.io/docs/1.1/messageinfo
+        """
         context = {
             'emailmessageid': message_id
         }
@@ -254,6 +269,9 @@ class ContextIO(object):
                                   account=account)
 
     def messageinfo_from_address(self, date_sent, from_address, account=None):
+        """
+        see http://context.io/docs/1.1/messageinfo
+        """
         context = {
             'datesent': date_sent,
             'from': from_address
@@ -263,6 +281,9 @@ class ContextIO(object):
                                   account=account)
 
     def messagetext(self, message_id, type='all', account=None):
+        """
+        see http://context.io/docs/1.1/messagetext
+        """
         context = {
             'emailmessageid': message_id
         }
@@ -275,6 +296,9 @@ class ContextIO(object):
 
     def messagetext_from_address(self, date_sent, from_address, type='all',
                                  account=None):
+        """
+        see http://context.io/docs/1.1/messagetext
+        """
         context = {
             'datesent': date_sent,
             'from': from_address
@@ -286,6 +310,9 @@ class ContextIO(object):
                                   account=account)
 
     def relatedfiles(self, file_id, limit=None, account=None):
+        """
+        see http://context.io/docs/1.1/relatedfiles
+        """
         context = {
             'fileid': file_id,
         }
@@ -296,6 +323,9 @@ class ContextIO(object):
                                   account)
 
     def search(self, subject, limit=None, account=None):
+        """
+        see http://context.io/docs/1.1/search
+        """
         context = {
             'subject': subject
         }
@@ -306,6 +336,9 @@ class ContextIO(object):
                                   account)
 
     def threadinfo(self, gmail_thread_id='',email_id='', account=None):
+        """
+        see http://context.io/docs/1.1/threadinfo
+        """
         context = {}
 
         if gmail_thread_id and email_id:
@@ -360,6 +393,9 @@ class IMAPAdmin(object):
 
     def add_account(self, email, username, password,
                     server='imap.gmail.com', usessl=True, port=993):
+        """
+        see http://context.io/docs/1.1/imap/addaccount
+        """
         context = {
             'email': email,
             'username': username,
@@ -371,12 +407,18 @@ class IMAPAdmin(object):
         return self._get_response('imap/addaccount.json', context)
 
     def discover(self, email):
+        """
+        see http://context.io/docs/1.1/imap/discover
+        """
         context = {
             'email': email
         }
         return self._get_response('imap/discover.json', context)
 
     def modify_account(self, credentials='', mailboxes=None, account=None):
+        """
+        see http://context.io/docs/1.1/imap/modifyaccount
+        """
         context = {}
         if credentials:
             context['credentials'] = credentials
@@ -386,9 +428,15 @@ class IMAPAdmin(object):
         return self._get_response('imap/modifyaccount.json',context=context,account=account)
 
     def remove_account(self, account):
+        """
+        see http://context.io/docs/1.1/imap/removeaccount
+        """
         context = {'account':account}
         return self._get_response('imap/removeaccount.json', context)
 
     def reset_status(self, account):
+        """
+        see http://context.io/docs/1.1/imap/resetstatus
+        """
         context = {'account':account}
         return self._get_response('imap/resetstatus.json', context)

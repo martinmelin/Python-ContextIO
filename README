@@ -4,7 +4,7 @@ Python Client Library for Context.IO API
 
 This repository contains the Python Client Library for Context.IO. Please consult
 http://context.io for more information regarding Context.IO. Complete API
-documentation is available at http://developer.context.io
+documentation is available at http://context.io/docs/1.1
 
 
 REQUIREMENTS
