@@ -155,11 +155,22 @@ class ContextIO(object):
                                   limit,
                                   account)
 
-    def contactfiles(self, email, limit=None, account=None):
+    def contactfiles(self, email='', to_address='', from_address='',
+                     cc_address='', bcc_address='', limit=None, account=None):
         """
         see http://context.io/docs/1.1/contactfiles
         """
-        context={'email': email}
+        context={}
+        if email:
+            context['email'] = email
+        if to_address:
+            context['to'] = to_address
+        if from_address:
+            context['from'] = from_address
+        if cc_address:
+            context['cc'] = cc_address
+        if bcc_address:
+            context['bcc'] = bcc_address
         return self._get_response('contactfiles',
                                    context,
                                    limit,
