@@ -219,7 +219,7 @@ class ContextIO(object):
                               account)
         return self._get_response_for_url(url)
 
-    def filerevisions(self, file_ids, limit=None, account=None):
+    def filerevisions(self, file_ids, account=None):
         """
         see http://context.io/docs/1.1/filerevisions
         """
@@ -229,10 +229,9 @@ class ContextIO(object):
 
         return self._get_response('filerevisions',
                                   context,
-                                  limit,
-                                  account)
+                                  account=account)
 
-    def filerevisions_by_filename(self, filename, limit=None, account=None):
+    def filerevisions_by_filename(self, filename, account=None):
         """
         see http://context.io/docs/1.1/filerevisions
         """
@@ -242,8 +241,7 @@ class ContextIO(object):
 
         return self._get_response('filerevisions',
                                   context,
-                                  limit,
-                                  account)
+                                  account=account)
 
     def filesearch(self, filename, account=None):
         """
