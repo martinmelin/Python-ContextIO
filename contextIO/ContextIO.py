@@ -281,13 +281,15 @@ class ContextIO(object):
                                   context,
                                   account=account)
 
-    def relatedfiles(self, file_id, account=None):
+    def relatedfiles(self, file_id='', filename='', account=None):
         """
         see http://context.io/docs/1.1/relatedfiles
         """
-        context = {
-            'fileid': file_id,
-        }
+        context = {}
+        if file_id:
+            context['fileid'] = file_id
+	if filename:
+            context['filename'] = filename
 
         return self._get_response('relatedfiles',
                                   context,
