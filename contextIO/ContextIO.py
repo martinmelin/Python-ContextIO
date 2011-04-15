@@ -263,31 +263,20 @@ class ContextIO(object):
                                   context,
                                   account=account)
 
-    def messagetext(self, message_id, type='all', account=None):
+    def messagetext(self, message_id='', date_sent='', from_address='', type='all', account=None):
         """
         see http://context.io/docs/1.1/messagetext
         """
-        context = {
-            'emailmessageid': message_id
-        }
+        context = {}
+        if message_id:
+            context['emailmessageid'] = message_id
+        if date_sent:
+            context['datesent'] = date_sent
+        if from_address:
+            context['from'] = from_address
         if type != 'all':
             context['type'] = type
 
-        return self._get_response('messagetext',
-                                  context,
-                                  account=account)
-
-    def messagetext_from_address(self, date_sent, from_address, type='all',
-                                 account=None):
-        """
-        see http://context.io/docs/1.1/messagetext
-        """
-        context = {
-            'datesent': date_sent,
-            'from': from_address
-        }
-        if type != 'all':
-            context['type'] = type
         return self._get_response('messagetext',
                                   context,
                                   account=account)
