@@ -245,7 +245,7 @@ class ContextIO(object):
                                   limit,
                                   account)
 
-    def filesearch(self, filename, limit=None, account=None):
+    def filesearch(self, filename, account=None):
         """
         see http://context.io/docs/1.1/filesearch
         """
@@ -254,8 +254,7 @@ class ContextIO(object):
         }
         return  self._get_response('filesearch',
                                    context,
-                                   limit,
-                                   account)
+                                   account=account)
 
     def messageinfo(self, message_id, account=None):
         """
