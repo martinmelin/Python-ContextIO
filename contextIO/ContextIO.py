@@ -248,25 +248,17 @@ class ContextIO(object):
                                    context,
                                    account=account)
 
-    def messageinfo(self, message_id, account=None):
+    def messageinfo(self, message_id='', date_sent='', from_address='', account=None):
         """
         see http://context.io/docs/1.1/messageinfo
         """
-        context = {
-            'emailmessageid': message_id
-        }
-        return self._get_response('messageinfo',
-                                  context,
-                                  account=account)
-
-    def messageinfo_from_address(self, date_sent, from_address, account=None):
-        """
-        see http://context.io/docs/1.1/messageinfo
-        """
-        context = {
-            'datesent': date_sent,
-            'from': from_address
-        }
+        context = {}
+        if message_id:
+            context['emailmessageid'] = message_id
+        if date_sent:
+            context['datesent'] = date_sent
+        if from_address:
+            context['from'] = from_address
         return self._get_response('messageinfo',
                                   context,
                                   account=account)
