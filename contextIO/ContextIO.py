@@ -223,25 +223,15 @@ class ContextIO(object):
                               account)
         return self._get_response_for_url(url)
 
-    def filerevisions(self, file_ids, account=None):
+    def filerevisions(self, file_id='', filename='', account=None):
         """
         see http://context.io/docs/1.1/filerevisions
         """
-        context = {
-            'fileid': ','.join(file_ids)
-            }
-
-        return self._get_response('filerevisions',
-                                  context,
-                                  account=account)
-
-    def filerevisions_by_filename(self, filename, account=None):
-        """
-        see http://context.io/docs/1.1/filerevisions
-        """
-        context = {
-            'filename': filename
-        }
+        context = {}
+        if file_id:
+            context['fileid'] = file_id
+        if filename:
+            context['filename'] = filename
 
         return self._get_response('filerevisions',
                                   context,
