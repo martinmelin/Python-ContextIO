@@ -204,21 +204,12 @@ class ContextIO(object):
 
         context = {
             'fileid1': file_id1,
-            'fileid2': file_id2
-        }
-        return self._get_response('diffsummary',
-                                  context,
-                                  account)
-
-    def diffsummary_with_comparaison(self, file_id1, file_id2, account):
-        context = {
-            'fileid1': file_id1,
             'fileid2': file_id2,
-            'generate': '1'
+	    'generate' : '1'
         }
         return self._get_response('diffsummary',
                                   context,
-                                  account)
+                                  account=account)
 
     def downloadfile(self, file_id, account=None):
         """
