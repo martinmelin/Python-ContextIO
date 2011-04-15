@@ -364,7 +364,7 @@ class IMAPAdmin(object):
         url = self.requester.build_url(action, context,account=account)
         return self.requester.get_response_for_url(url)
 
-    def add_account(self, email, username, password,
+    def add_account(self, email, username, password, firstname='', lastname='',
                     server='imap.gmail.com', usessl=True, port=993):
         """
         see http://context.io/docs/1.1/imap/addaccount
@@ -373,6 +373,8 @@ class IMAPAdmin(object):
             'email': email,
             'username': username,
             'password': password,
+            'firstname': firstname,
+            'lastname': lastname,
             'server': server,
             'usessl': '1' if usessl else '0',
             'port': '%s' % port
