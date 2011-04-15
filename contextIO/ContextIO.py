@@ -373,12 +373,14 @@ class IMAPAdmin(object):
             'email': email,
             'username': username,
             'password': password,
-            'firstname': firstname,
-            'lastname': lastname,
             'server': server,
             'usessl': '1' if usessl else '0',
             'port': '%s' % port
         }
+        if firstname:
+            context['firstname']= firstname
+        if lastname:
+            context['lastname']= lastname
         return self._get_response('imap/addaccount.json', context)
 
     def discover(self, email):
