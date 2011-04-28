@@ -249,6 +249,22 @@ class ContextIO(object):
                                    context,
                                    account=account)
 
+    def messageheaders(self, message_id='', date_sent='', from_address='', account=None):
+        """
+        see http://context.io/docs/1.1/messageheaders
+        """
+        context = {}
+        if message_id:
+            context['emailmessageid'] = message_id
+        if date_sent:
+            context['datesent'] = date_sent
+        if from_address:
+            context['from'] = from_address
+
+        return self._get_response('messageheaders',
+                                  context,
+                                  account=account)
+
     def messageinfo(self, message_id='', date_sent='', from_address='', account=None):
         """
         see http://context.io/docs/1.1/messageinfo
